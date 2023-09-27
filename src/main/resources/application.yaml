@@ -1,6 +1,16 @@
 spring:
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowed-origins: http://localhost:3000
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: false
       routes:
         - id: ms_auth
           uri: http://localhost:8081
@@ -8,3 +18,21 @@ spring:
             - Path=/auth/**
           filters:
             - RewritePath=/auth/(?<segment>.*),/$\{segment}
+        - id: ms_band
+          uri: http://localhost:8084
+          predicates:
+            - Path=/band/**
+          filters:
+            - RewritePath=/band/(?<segment>.*),/$\{segment}
+        - id: ms_event
+          uri: http://localhost:8081
+          predicates:
+            - Path=/event/**
+          filters:
+            - RewritePath=/event/(?<segment>.*),/$\{segment}
+        - id: ms_file
+          uri: http://localhost:8081
+          predicates:
+            - Path=/file/**
+          filters:
+            - RewritePath=/file/(?<segment>.*),/$\{segment}
