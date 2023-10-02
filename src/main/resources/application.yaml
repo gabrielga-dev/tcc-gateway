@@ -24,15 +24,22 @@ spring:
             - Path=/band/**
           filters:
             - RewritePath=/band/(?<segment>.*),/$\{segment}
+        - id: ms_location
+          uri: http://localhost:8085
+          predicates:
+            - Path=/location/**
+          filters:
+            - RewritePath=/location/(?<segment>.*),/$\{segment}
+        - id: ms_file
+          uri: http://localhost:8086
+          predicates:
+            - Path=/file/**
+          filters:
+            - RewritePath=/file/(?<segment>.*),/$\{segment}
+
         - id: ms_event
           uri: http://localhost:8081
           predicates:
             - Path=/event/**
           filters:
             - RewritePath=/event/(?<segment>.*),/$\{segment}
-        - id: ms_file
-          uri: http://localhost:8081
-          predicates:
-            - Path=/file/**
-          filters:
-            - RewritePath=/file/(?<segment>.*),/$\{segment}
