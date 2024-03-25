@@ -36,9 +36,8 @@ spring:
             - Path=/file/**
           filters:
             - RewritePath=/file/(?<segment>.*),/$\{segment}
-
         - id: ms_event
-          uri: http://localhost:8081
+          uri: http://localhost:8087
           predicates:
             - Path=/event/**
           filters:
